@@ -5,7 +5,7 @@ from datetime import datetime
 
 def fetch_weather_data():
     # Daten aus der API abrufen
-    url = 'http://api.openweathermap.org/data/2.5/weather?q=Berlin&appid=7b256a5921981a44c938b40908d30411'
+    url = 'http://api.openweathermap.org/data/2.5/weather?q=Rome&appid=7b256a5921981a44c938b40908d30411'
     response = requests.get(url)
     data = response.json()
 
