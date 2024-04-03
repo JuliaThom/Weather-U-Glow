@@ -36,21 +36,22 @@ class WeatherApp(App):
             user='postgres',
             password='Monster',
             host='localhost',
-            port=5432
+            port='5432'
         )
         cur = conn.cursor()
-        cur.execute('SELECT city, temperature, wind_speed, temp_max, temp_min FROM weather_data ORDER BY timestamp DESC LIMIT 1')
+        cur.execute('SELECT * FROM weather_data ORDER BY timestamp DESC LIMIT 1')
         data = cur.fetchone()
         cur.close()
         conn.close()
 
         if data:
-            city, temperature, wind_speed, temp_max, temp_min = data
+            city, temperature, wind_speed, temp_max, temp_min = data[2:]
+            temperature_celsius = temperature - 273.15
             self.label_city.text = f'Stadt: {city}'
-            self.label_temp.text = f'Temperatur: {temperature} °C'
+            self.label_temp.text = f'Temperatur: {temperature_celsius:.2f} °C'
             self.label_wind.text = f'Windgeschwindigkeit: {wind_speed} m/s'
-            self.label_max_temp.text = f'Maximale Temperatur: {temp_max} °C'
-            self.label_min_temp.text = f'Minimale Temperatur: {temp_min} °C'
+            self.label_max_temp.text = f'Maximale Temperatur: {temp_max - 273.15:.2f} °C'
+            self.label_min_temp.text = f'Minimale Temperatur: {temp_min - 273.15:.2f} °C'
         else:
             print('Keine Daten gefunden.')
 
