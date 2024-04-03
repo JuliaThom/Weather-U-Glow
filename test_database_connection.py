@@ -1,29 +1,28 @@
-import psycopg2
+import pg8000
 
 try:
-    # Verbindung zur Datenbank herstellen und client_encoding festlegen
-    conn = psycopg2.connect(
-        dbname='weather',
+    # Verbindung zur Datenbank herstellen
+    conn = pg8000.connect(
         user='postgres',
-        password='miau',
+        password='Monster',
         host='localhost',
-        port='5432',
-        client_encoding='latin1'  # Hier die gewünschte Zeichenkodierung angeben
+        port=5432,
+        database='weather'
     )
 
     # Cursor erstellen
-    cur = conn.cursor()
+    cursor = conn.cursor()
 
     # Beispielabfrage ausführen
-    cur.execute('SELECT version()')
+    cursor.execute('SELECT version()')
 
     # Ergebnis abrufen
-    db_version = cur.fetchone()
+    db_version = cursor.fetchone()
     print('Datenbankversion:', db_version)
 
     # Cursor und Verbindung schließen
-    cur.close()
+    cursor.close()
     conn.close()
 
-except psycopg2.Error as e:
+except Exception as e:
     print('Fehler beim Verbindungsaufbau zur Datenbank:', e)
