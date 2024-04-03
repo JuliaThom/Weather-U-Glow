@@ -2,11 +2,10 @@ import requests
 from datetime import datetime
 import psycopg2
 
-API_KEY = '7b256a5921981a44c938b40908d30411'  # Bitte fügen Sie hier Ihren API-Schlüssel ein
-CITY = 'Berlin'  # Beispielstadt
+
 
 def fetch_weather_data():
-    url = f'http://api.openweathermap.org/data/2.5/weather?q={CITY}&appid={API_KEY}'
+    url = f'http://api.openweathermap.org/data/2.5/weather?q=Berlin&appid=7b256a5921981a44c938b40908d30411'
     response = requests.get(url)
     data = response.json()
 
@@ -21,11 +20,12 @@ def fetch_weather_data():
     else:
         print("Fehler: Keine Daten gefunden.")
 
+
 def save_to_database(timestamp, city, temperature, wind_speed, temp_max, temp_min):
     conn = psycopg2.connect(
         dbname='weather',
         user='postgres',
-        password='Miau',
+        password='Monster',
         host='localhost',
         port='5432'
     )
@@ -38,6 +38,7 @@ def save_to_database(timestamp, city, temperature, wind_speed, temp_max, temp_mi
     conn.commit()
     cur.close()
     conn.close()
+
 
 if __name__ == "__main__":
     fetch_weather_data()
