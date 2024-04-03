@@ -23,6 +23,9 @@ class WeatherApp(App):
         self.label_min_temp = Label(text='Minimale Temperatur: ')
         self.layout.add_widget(self.label_min_temp)
 
+        self.label_timestamp = Label(text='Letztes Update: ')
+        self.layout.add_widget(self.label_timestamp)
+
         refresh_button = Button(text='Daten aktualisieren')
         refresh_button.bind(on_press=self.refresh_data)
         self.layout.add_widget(refresh_button)
@@ -45,13 +48,14 @@ class WeatherApp(App):
         conn.close()
 
         if data:
-            city, temperature, wind_speed, temp_max, temp_min = data[2:]
+            timestamp, city, temperature, wind_speed, temp_max, temp_min = data[1:]
             temperature_celsius = temperature - 273.15
             self.label_city.text = f'Stadt: {city}'
             self.label_temp.text = f'Temperatur: {temperature_celsius:.2f} °C'
             self.label_wind.text = f'Windgeschwindigkeit: {wind_speed} m/s'
             self.label_max_temp.text = f'Maximale Temperatur: {temp_max - 273.15:.2f} °C'
             self.label_min_temp.text = f'Minimale Temperatur: {temp_min - 273.15:.2f} °C'
+            self.label_timestamp.text = f'Letztes Update: {timestamp}'
         else:
             print('Keine Daten gefunden.')
 
