@@ -28,6 +28,7 @@ def save_to_database(timestamp, city, temperature, wind_speed, temp_max, temp_mi
     try:
         # Verbindung zur Datenbank herstellen
         conn = pg8000.connect(
+            database='weather',
             user='postgres',
             password='Monster',
             host='localhost',

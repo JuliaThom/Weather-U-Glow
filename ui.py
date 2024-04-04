@@ -36,6 +36,7 @@ class WeatherApp(App):
 
     def fetch_weather_data(self):
         conn = pg8000.connect(
+            database='weather',
             user='postgres',
             password='Monster',
             host='localhost',
