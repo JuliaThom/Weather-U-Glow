@@ -5,6 +5,7 @@ from kivy.uix.boxlayout import BoxLayout    # Import der BoxLayout-Klasse aus de
 from kivy.uix.label import Label    # Import der Label-Klasse aus dem kivy.uix-Modul
 from kivy.uix.button import Button      # Import der Button-Klasse aus dem kivy.uix-Modul
 import pg8000   # Import der pg8000-Bibliothek für die PostgreSQL-Datenbankanbindung
+from main import fetch_weather_data as fwd
 
 
 # Definition der WeatherApp-Klasse, die von der App-Klasse von Kivy erbt
@@ -55,7 +56,7 @@ class WeatherApp(App):
             host='localhost',   # Hostname oder IP-Adresse des PostgreSQL-Servers
             port='5432'     # Port, über den die Verbindung hergestellt wird (standardmäßig 5432 für PostgreSQL)
         )
-
+        fwd()
         # Cursor erstellen und die neuesten Wetterdaten abrufen
         cur = conn.cursor()
         cur.execute('SELECT * FROM weather_data ORDER BY timestamp DESC LIMIT 1')
@@ -76,6 +77,8 @@ class WeatherApp(App):
         else:
             # Wenn keine Daten gefunden wurden, eine Meldung ausgeben
             print('Keine Daten gefunden.')
+
+
 
     # Methode zum Aktualisieren der Wetterdaten bei Betätigung des Aktualisierungsbuttons
     def refresh_data(self):

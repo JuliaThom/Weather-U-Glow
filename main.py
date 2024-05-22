@@ -5,10 +5,11 @@ from datetime import datetime   # Zeitstempel
 # # Funktion zum Abrufen von Wetterdaten von der API und Speichern in der Datenbank
 def fetch_weather_data():
     # Daten aus der API abrufen
-    url = 'http://api.openweathermap.org/data/2.5/weather?q=Tokyo&appid=7b256a5921981a44c938b40908d30411'
+    url = 'http://api.openweathermap.org/data/2.5/weather?q=Berlin&appid=7b256a5921981a44c938b40908d30411'
     response = requests.get(url)    # GET-Anfrage an die API senden
     data = response.json()  # Die Antwort in das JSON-Format umwandeln
     # RESTful API an, die JSON zur Datenübertragung verwendet.
+
 
     # Daten aus der API parsen
     if 'main' in data and 'wind' in data:
